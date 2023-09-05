@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+app.use(express.json());
 
 const PORT = 3001;
 
@@ -26,6 +27,10 @@ let persons = [
   },
 ];
 
+const generateNewId = () => {
+  return Math.floor(Math.random() * 9999999);
+};
+
 app.get("/api/persons", (req, res) => {
   res.json(persons);
 });
@@ -48,6 +53,29 @@ app.delete("/api/persons/:id", (req, res) => {
   persons = persons.filter((p) => p.id !== id);
 
   res.status(204).end();
+});
+
+app.post("/api/persons", (req, res) => {
+  const body = req.body;
+
+  if (!body.name || !body.number) {
+    return res.status(400).json({
+      error: "missing content",
+    });
+  }
+
+  let id = generateNewId();
+  while (persons.find((p) => p.id === id)) {
+    id = generateNewId();
+  }
+
+  const person = {
+    id: id,
+    ...body,
+  };
+
+  persons = persons.concat(person);
+  res.json(person);
 });
 
 app.listen(PORT, () => {
