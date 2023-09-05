@@ -60,8 +60,10 @@ app.post("/api/persons", (req, res) => {
 
   if (!body.name || !body.number) {
     return res.status(400).json({
-      error: "missing content",
+      error: "missing name or number",
     });
+  } else if (persons.find((p) => p.name === body.name)) {
+    return res.status(409).json({ error: "name must be unique" });
   }
 
   let id = generateNewId();
