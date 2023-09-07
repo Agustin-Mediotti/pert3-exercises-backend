@@ -78,6 +78,7 @@ app.post("/api/persons", (req, res) => {
     id: id,
     ...body,
   };
+  console.log(JSON.stringify(person));
 
   persons = persons.concat(person);
   res.json(person);
