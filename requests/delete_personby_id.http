@@ -5,3 +5,7 @@ Content-Type: application/json
     "name": "Agustin Mediotti",
     "number": "6181121"
 }
+
+###
+
+DELETE https://phonebook-backend-9ofx.onrender.com/api/persons/980567

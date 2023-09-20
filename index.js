@@ -5,7 +5,8 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 
-const PORT = 3001;
+// eslint-disable-next-line no-undef
+const PORT = process.env.PORT || 3001;
 
 let persons = [
   {
