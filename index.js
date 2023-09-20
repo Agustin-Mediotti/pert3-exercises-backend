@@ -4,6 +4,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 app.use(express.json());
 app.use(cors());
+app.use(express.static("dist"));
 
 // eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 3001;
