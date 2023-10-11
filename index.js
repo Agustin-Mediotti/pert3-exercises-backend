@@ -34,10 +34,6 @@ let persons = [
   },
 ];
 
-const generateNewId = () => {
-  return Math.floor(Math.random() * 9999999);
-};
-
 app.use(morgan("tiny"));
 
 app.get("/api/persons", (req, res) => {
@@ -73,21 +69,15 @@ app.post("/api/persons", (req, res) => {
     return res.status(400).json({
       error: "missing name or number",
     });
-  } else if (persons.find((p) => p.name === body.name)) {
-    return res.status(409).json({ error: "name must be unique" });
   }
 
-  let id = generateNewId();
-  while (persons.find((p) => p.id === id)) {
-    id = generateNewId();
-  }
-
-  const person = {
-    id: id,
+  const person = new Contact({
     ...body,
-  };
+  });
   console.log(JSON.stringify(person));
-
+  person.save().then((savedPerson) => {
+    res.json(savedPerson);
+  });
   persons = persons.concat(person);
   res.json(person);
 });
