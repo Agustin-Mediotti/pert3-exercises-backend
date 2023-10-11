@@ -6,7 +6,7 @@ const cors = require("cors");
 app.use(express.json());
 app.use(cors());
 app.use(express.static("dist"));
-const Person = require("./models/person");
+const Contact = require("./models/contact");
 
 // eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 3001;
@@ -41,7 +41,7 @@ const generateNewId = () => {
 app.use(morgan("tiny"));
 
 app.get("/api/persons", (req, res) => {
-  Person.find({}).then((persons) => {
+  Contact.find({}).then((persons) => {
     res.json(persons);
   });
 });
