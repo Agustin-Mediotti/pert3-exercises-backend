@@ -72,14 +72,13 @@ app.post("/api/persons", (req, res) => {
   }
 
   const person = new Contact({
-    ...body,
+    name: body.name,
+    number: Number(body.number),
   });
   console.log(JSON.stringify(person));
   person.save().then((savedPerson) => {
     res.json(savedPerson);
   });
-  persons = persons.concat(person);
-  res.json(person);
 });
 
 app.listen(PORT, () => {
