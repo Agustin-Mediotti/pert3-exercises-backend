@@ -55,9 +55,13 @@ app.get("/api/persons/:id", (req, res) => {
   person ? res.json(person) : res.status(404).end();
 });
 
-app.delete("/api/persons/:id", (req, res) => {
-  const id = Number(req.params.id);
-  persons = persons.filter((p) => p.id !== id);
+app.delete("/api/persons/:id", (req, res, next) => {
+  Contact.findByIdAndRemove(req.params.id)
+    .then((result) => {
+      console.log(result);
+      res.status(204).end();
+    })
+    .catch((err) => next(err));
 
   res.status(204).end();
 });
