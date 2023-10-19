@@ -85,6 +85,17 @@ app.post("/api/persons", (req, res) => {
   });
 });
 
+const errorHandling = (err, req, res, next) => {
+  console.log(err);
+
+  if (err.name === "CastError") {
+    return res.status(400).send({ error: "malformetted id" });
+  }
+  next(err);
+};
+
+app.use(errorHandling);
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
