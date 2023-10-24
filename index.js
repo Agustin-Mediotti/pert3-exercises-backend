@@ -88,13 +88,13 @@ app.post("/api/persons", (req, res) => {
 });
 
 app.put("/api/persons/:id", (req, res, next) => {
-  const body = req.body;
+  const { name, number } = req.body;
 
-  const newContact = {
-    name: body.name,
-    number: body.number,
-  };
-  Contact.findByIdAndUpdate(req.params.id, newContact, { new: true })
+  Contact.findByIdAndUpdate(
+    req.params.id,
+    { name, number },
+    { new: true, runValidators: true, context: "query" }
+  )
     .then((updatedContact) => {
       console.log(updatedContact);
       res.json(updatedContact);
