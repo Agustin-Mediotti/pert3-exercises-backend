@@ -68,23 +68,20 @@ app.delete("/api/persons/:id", (req, res, next) => {
   res.status(204).end();
 });
 
-app.post("/api/persons", (req, res) => {
+app.post("/api/persons", (req, res, next) => {
   const body = req.body;
-
-  if (!body.name || !body.number) {
-    return res.status(400).json({
-      error: "missing name or number",
-    });
-  }
 
   const person = new Contact({
     name: body.name,
     number: Number(body.number),
   });
   console.log(JSON.stringify(person));
-  person.save().then((savedPerson) => {
-    res.json(savedPerson);
-  });
+  person
+    .save()
+    .then((savedPerson) => {
+      res.json(savedPerson);
+    })
+    .catch((err) => next(err));
 });
 
 app.put("/api/persons/:id", (req, res, next) => {
@@ -107,6 +104,8 @@ const errorHandling = (err, req, res, next) => {
 
   if (err.name === "CastError") {
     return res.status(400).send({ error: "malformetted id" });
+  } else if (err.name === "ValidationError") {
+    return res.status(400).json({ error: err.message });
   }
   next(err);
 };

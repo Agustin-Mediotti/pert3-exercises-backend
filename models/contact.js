@@ -18,11 +18,16 @@ const contactSchema = new mongoose.Schema({
   name: {
     type: String,
     minLength: 3,
-    required: true,
+    required: [true, "Name required"],
   },
   number: {
     type: String,
-    required: true,
+    validate: {
+      validator: (v) => {
+        return /\d{2,3}-\d{8}/.test(v);
+      },
+    },
+    required: [true, "Phone number required"],
   },
 });
 

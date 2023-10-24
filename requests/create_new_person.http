@@ -2,8 +2,8 @@ POST https://phonebook-backend-9ofx.onrender.com/api/persons
 Content-Type: application/json
 
 {
-    "name": "Agustin Mediotti",
-    "number": "6181121"
+    "name": "Max Forwarded",
+    "number": "888-6181121"
 }
 
 ###
@@ -12,6 +12,6 @@ POST http://localhost:3001/api/persons
 Content-Type: application/json
 
 {
-    "name": "Agustin Mediotti",
-    "number": "6181121"
+    "name": "Esteban Quito",
+    "number": "61811"
 }
