@@ -85,6 +85,21 @@ app.post("/api/persons", (req, res) => {
   });
 });
 
+app.put("/api/persons/:id", (req, res, next) => {
+  const body = req.body;
+
+  const newContact = {
+    name: body.name,
+    number: body.number,
+  };
+  Contact.findByIdAndUpdate(req.params.id, newContact, { new: true })
+    .then((updatedContact) => {
+      console.log(updatedContact);
+      res.json(updatedContact);
+    })
+    .catch((err) => next(err));
+});
+
 const errorHandling = (err, req, res, next) => {
   console.log(err);
 
