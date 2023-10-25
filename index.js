@@ -8,7 +8,6 @@ app.use(cors());
 app.use(express.static("dist"));
 const Contact = require("./models/contact");
 
-// eslint-disable-next-line no-undef
 const PORT = process.env.PORT || 3001;
 
 let persons = [
